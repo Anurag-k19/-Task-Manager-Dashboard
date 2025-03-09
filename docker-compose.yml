@@ -3,7 +3,7 @@ services:
    task-management:
       build: .
       ports:
-        - 5000:5000
+        - 5173:5173
       environment:
         - NODE_ENV=production
    
