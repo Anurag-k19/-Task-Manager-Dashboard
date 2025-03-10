@@ -1,7 +1,7 @@
 # Task Manager Dashboard
 
 ## Overview
- - The Task Manager Dashboard is a basic to-do list app built using React and Tailwind CSS. It allows users to add and delete tasks efficiently with a clean and responsive UI.
+ - The Task Manager Dashboard is a basic to-do list app built using React and Tailwind CSS. It allows users to add, edit, and delete tasks efficiently with a clean and responsive UI.
 
 ## Installation & Setup
  - Option 1: Run Locally
