@@ -8,6 +8,8 @@ function App() {
   const containerRef = useRef(null);
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState("");
+    const [editIndex, setEditIndex] = useState(null)
+    const [editText, setEditText] = useState("")
     const addTask = () => {
       if (newTask.trim() !== "") {
         setTasks([...tasks, newTask]);
@@ -20,6 +22,21 @@ function App() {
     const deleteTask = (index) => {
       const updatedTasks = tasks.filter((_, i) => i !== index);
       setTasks(updatedTasks);
+    }
+
+    const startEditing = (index)=>{
+      setEditIndex(index)
+      setEditText(tasks[index])
+    }
+
+    const saveTask = ()=>{
+      if(editText.trim() !== ""){
+        const updatedTasks = [...tasks]
+        updatedTasks[editIndex] = editText
+        setTasks(updatedTasks)
+        setEditIndex(null)
+        setEditText("")
+      }
     }
 
   return (
@@ -50,8 +67,23 @@ ref={containerRef}
 <ul className="w-3/4 text-white text-lg mt-6 bg-gray-700/80 p-4 rounded-xl shadow-lg">
   {tasks.map((task, index) => (
     <li key={index} className="flex justify-between items-center bg-gray-600 p-4 rounded-lg mt-2 shadow-md">
+      {editIndex == index ? (
+        <input 
+        className="w-100"
+        type="text"
+        value={editText}
+        onChange={(e)=>setEditText(e.target.value)} />
+      ) :(
       <span>{task}</span>
-      <Button value="❌" className="btn btn-error" onClick={() => deleteTask(index)} />
+    )}
+      <div className="flex gap-2">
+        {editIndex === index ? (
+          <Button value="💾 Save" className="btn btn-success" onClick={saveTask} />
+        ) : (
+          <Button value="✏️ Edit" className="btn btn-warning" onClick={() => startEditing(index)} />
+        )}
+        <Button value="❌" className="btn btn-error" onClick={() => deleteTask(index)} />
+      </div>
     </li>
   ))}
 </ul>
